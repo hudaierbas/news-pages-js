@@ -1,12 +1,26 @@
-// test data
-const news = [
-  ["HABER 1", "12.04.21", "içerik1"],
-  ["HABER 2", "12.04.21", "içerik2"],
-  ["HABER 3", "12.04.21", "içerik3"],
-];
+//datanın çekilmesi
+const news = [];
 
-//sayfa sayısının hesaplanması
-const pageCount = Math.floor(news.length / 2 + 0.9);
+const getData = () => {
+  $.ajax({
+    type: "GET",
+    url: "news.php",
+    dataType: "json",
+
+    success: function (result) {
+      for (let index = 0; index < result.length; index++) {
+        news.push([
+          result[index].title,
+          result[index].date,
+          result[index].news,
+        ]);
+      }
+      setNews();
+    },
+  });
+};
+
+getData();
 
 //mevcut sayfa
 var currentPage = 1;
@@ -37,6 +51,9 @@ navLeft.onclick = () => {
 
 //haber içeriklerini oluşturan fonksiyon
 const setNews = () => {
+  //sayfa sayısının hesaplanması
+  const pageCount = Math.floor(news.length / 2 + 0.9);
+
   if (pageCount > 1 && currentPage < pageCount) {
     navRight.style.display = "flex";
   } else {
@@ -56,10 +73,9 @@ const setNews = () => {
   }
   navCount.innerHTML = currentPage;
 
-  const pages = [];
+  var pages = [];
   for (let i = 0; i < pageCount + 1; i++) {
     pages.push([i, i + 1]);
-    i++;
   }
 
   //sayfa geçişleri
@@ -83,5 +99,3 @@ const setNews = () => {
     n2.style.display = "none";
   }
 };
-
-setNews();
