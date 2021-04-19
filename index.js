@@ -15,6 +15,7 @@ const getData = () => {
           result[index].news,
         ]);
       }
+      news.reverse();
       setNews();
     },
   });
@@ -74,12 +75,14 @@ const setNews = () => {
   navCount.innerHTML = currentPage;
 
   var pages = [];
-  for (let i = 0; i < pageCount + 1; i++) {
+  for (let i = 0; i < pageCount + 1; i += 2) {
     pages.push([i, i + 1]);
   }
 
   //sayfa geçişleri
   let selectedPages = pages[currentPage - 1];
+
+  console.log(selectedPages);
 
   if (selectedPages[1] < news.length) {
     n1Title.innerHTML = news[selectedPages[0]][0];
