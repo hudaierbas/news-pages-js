@@ -75,9 +75,13 @@ const setNews = () => {
   navCount.innerHTML = currentPage;
 
   var pages = [];
-  for (let i = 0; i < pageCount + 1; i += 2) {
-    pages.push([i, i + 1]);
+  var increasePage = 0;
+  for (let i = 0; i < pageCount + 1; i += 1) {
+    pages.push([increasePage, increasePage + 1]);
+    increasePage += 2;
   }
+
+  console.log(pages);
 
   //sayfa geçişleri
   let selectedPages = pages[currentPage - 1];
